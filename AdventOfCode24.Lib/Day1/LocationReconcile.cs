@@ -1,15 +1,10 @@
 ﻿namespace AdventOfCode24.Lib.Day1;
 
-public class LocationReconcile
+public class Location()
 {
-    public LocationReconcile(string inputFilePath)
-    {
-        _inputFilePath = inputFilePath;
-    }
-
-    private readonly string _inputFilePath;
-    private List<int> _locationsG1 = [];
-    private List<int> _locationsG2 = [];
+    public string? InputFilePath { get; set; }
+    private readonly List<int> _locationsG1 = [];
+    private readonly List<int> _locationsG2 = [];
 
     /// <summary>
     ///  Reconcile location distances between the finding of both groups
@@ -18,10 +13,10 @@ public class LocationReconcile
     /// <exception cref="NotImplementedException"></exception>
     public int Reconcile()
     {
-        if (string.IsNullOrEmpty(_inputFilePath))
+        if (string.IsNullOrEmpty(InputFilePath))
             throw new InvalidOperationException("Input file path is empty");
-        if (!File.Exists(_inputFilePath))
-            throw new FileNotFoundException("Input file not found", _inputFilePath);
+        if (!File.Exists(InputFilePath))
+            throw new FileNotFoundException("Input file not found", InputFilePath);
         
         var input = ReadInputFile();
         
@@ -40,6 +35,13 @@ public class LocationReconcile
     /// 
     /// </summary>
     /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public int GetSimilarityScore() => _locationsG1.Select(g1 =>  g1 * _locationsG2.Count(g2 => g2 == g1)).Sum();
+    
+    /// <summary>
+    ///  Calculates the disparity of each index pair locations between 2 groups
+    /// </summary>
+    /// <returns>The sum of disparity of locations</returns>
     private int CalculateDistance()
     {
         // Sort both group data
@@ -49,9 +51,16 @@ public class LocationReconcile
         // Process each index row - Assumption is that both have the same amount of rows
         return _locationsG1.Select((t, i) => Math.Abs(t - _locationsG2[i])).Sum();
     }
+    
+    public void Clear()
+    {
+        _locationsG1.Clear();
+        _locationsG2.Clear();
+    }
+
 
     /// <summary>
-    /// 
+    /// Reads the input and splits the 2 column of strings
     /// </summary>
     /// <param name="input"></param>
     /// <exception cref="Exception"></exception>
@@ -61,9 +70,9 @@ public class LocationReconcile
         
         foreach (var i in enumerable)
         {
-            var pair = i.Split();
+            var pair = i.Trim().Split("  ");
             
-            if (string.IsNullOrEmpty(pair.First()) || string.IsNullOrEmpty(pair.Last()))
+            if (pair.Any(string.IsNullOrWhiteSpace))
                 throw new Exception("Missing location ID");
             
             _locationsG1.Add(int.Parse(pair.First()));
@@ -71,5 +80,6 @@ public class LocationReconcile
         }
     }
     
-    private string[] ReadInputFile() => File.ReadAllLines(_inputFilePath);
+    
+    private string[] ReadInputFile() => File.ReadAllLines(InputFilePath ?? string.Empty);
 }

@@ -1,12 +1,21 @@
 ﻿using AdventOfCode24.Lib.Day1;
 
 #region Day 1
-const string INPUT_FILE_PATH = @"C:\Users\kevin\RiderProjects\AdventOfCode24\AdventOfCode24.Lib\Day1\Input.txt"; 
+var lr = new Location();
 
-var lr = new LocationReconcile(INPUT_FILE_PATH);
-
-var distance = lr.Reconcile();
-Console.WriteLine(distance);
+lr.InputFilePath = @"C:\Users\kevin\RiderProjects\AdventOfCode24\AdventOfCode24.Lib\Day1\Input.txt";
+Console.WriteLine(lr.Reconcile());
+Console.WriteLine(lr.GetSimilarityScore());
 Console.ReadKey();
+lr.Clear();
+lr.InputFilePath = @"C:\Users\kevin\RiderProjects\AdventOfCode24\AdventOfCode24.Lib\Day1\Input_Reverse.txt";
+Console.WriteLine(lr.Reconcile());
+Console.WriteLine(lr.GetSimilarityScore());
+Console.ReadKey();
+
+#endregion
+
+#region Day 2
+
 #endregion
 
