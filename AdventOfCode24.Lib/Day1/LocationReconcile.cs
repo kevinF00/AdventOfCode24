@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode24.Lib.Day1;
+﻿using AdventOfCode24.Lib.Shared;
+
+namespace AdventOfCode24.Lib.Day1;
 
 public class Location()
 {
@@ -18,7 +20,7 @@ public class Location()
         if (!File.Exists(InputFilePath))
             throw new FileNotFoundException("Input file not found", InputFilePath);
         
-        var input = ReadInputFile();
+        var input = Common.ReadInputFile(InputFilePath);
         
         if (input == null)
             throw new ArgumentException("Invalid Input string");
@@ -58,7 +60,6 @@ public class Location()
         _locationsG2.Clear();
     }
 
-
     /// <summary>
     /// Reads the input and splits the 2 column of strings
     /// </summary>
@@ -79,7 +80,4 @@ public class Location()
             _locationsG2.Add(int.Parse(pair.Last()));
         }
     }
-    
-    
-    private string[] ReadInputFile() => File.ReadAllLines(InputFilePath ?? string.Empty);
 }
