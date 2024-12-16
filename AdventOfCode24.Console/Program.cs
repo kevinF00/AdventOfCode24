@@ -17,6 +17,6 @@ using AdventOfCode24.Lib.Day2;
 #region Day 2
 var rv = new ReportValidator();
 rv.InputFilePath = @"C:\Users\kevin\RiderProjects\AdventOfCode24\AdventOfCode24.Lib\Day2\Input.txt";
-Console.WriteLine(rv.Validate());
+Console.WriteLine(rv.ValidateReport());
 #endregion
 
